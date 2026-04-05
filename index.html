@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>קטלוג האימונים מלי</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+          
+        }
+
+        body {
+            /* השינוי הקריטי כאן: 100% 100% גורם לתמונה להימתח לכל אורך הגלילה */
+            background-image: url('assets/עמוד פתיחה 2026.png');
+            background-size:  100%; 
+            background-position: top center;
+            background-repeat: no-repeat;
+            background-attachment: scroll; 
+            
+            overflow-x: hidden;
+            overflow-y: hidden;
+            transition: background-image 0.3s ease-in-out;
+        }
+
+        .page-wrapper {
+            position: relative;
+            width: 100%;
+            /* גובה ברירת מחדל */
+            min-height: 100vh;
+        }
+
+        .abs-btn {
+            position: absolute;
+            display: none;
+            z-index: 10;
+        }
+
+        /* מיקומים (לפי הקוד שלך) */
+        #NEXTButton { width: 250px; top: 90%; left: 50%; transform: translateX(-50%); }
+        
+        /* תפריט ראשי */
+        #ButtonYadmat   { width: 130px; top: 15%; left: 10%; }
+        #ButtonMahal    { width: 130px; top: 15%; right: 10%; }
+        #ButtonMaharas  { width: 130px; top: 32%; right: 10%; }
+        #ButtonDeromi   { width: 130px; top: 32%; left: 10%; }
+        #ButtonZfoni    { width: 130px; top: 49%; left: 10%; }
+        #ButtonZhav     { width: 130px; top: 49%; right: 10%; }
+        #ButtonHes      { width: 130px; top: 66%; left: 10%; }
+        #ButtonTiksov   { width: 130px; top: 66%; right: 10%; }
+        #ButtonEimon    { width: 130px; top: 83%; left: 50%; transform: translateX(-50%); }
+
+        #ButtonContinue { width:200px; top: 92%; left: 50%; transform: translateX(-50%); }
+        #ButtonMedamot  { width:100px; top: 88%; left:55%;  }
+        #ButtonHamer    { width: 100px; top:88%; left:20%;}
+
+        #ButtonGdod     { width: 300px; top: 30%; left: 50%; transform: translateX(-50%);  }
+        #ButtonHativa   { width: 300px; top: 45%; left: 50%; transform: translateX(-50%); }
+        #ButtonPikod    { width: 300px; top: 60%; left: 50%; transform: translateX(-50%); }
+        #ButtonHazor    { width: 40px; top: 5%; left: 8%; }
+
+        #ButtonMaclolMenala { width: 200px; top: 30%; left: 25%; transform: translateX(-50%); }
+        #ButtonTene         { width: 200px; top: 30%; left: 75%; transform: translateX(-50%); }
+        #ButtonHaspaka      { width: 200px; top: 40%; left: 25%; transform: translateX(-50%); }
+        #ButtonPlasim       { width: 200px; top: 40%; left: 75%; transform: translateX(-50%); }
+        #ButtonMasan        { width: 200px; top: 50%; left: 25%; transform: translateX(-50%); }
+        #ButtonRepoa        { width: 170px; top: 50%; left: 75%; transform: translateX(-50%); }
+
+
+         #Buttongadsam          { width: 200px; top: 30%; left: 27.5%; transform: translateX(-50%); }
+          #ButtonMaclolMivchim   { width: 200px; top: 30%; left: 75%; transform: translateX(-50%); }
+          #ButtonSinoa           { width: 200px; top: 40%; left: 27.5%; transform: translateX(-50%); }
+          #ButtonPtan            { width: 200px; top: 40%; left: 75%; transform: translateX(-50%); }
+          #ButtonPlahak          { width: 170px; top: 50%; left: 50%; transform: translateX(-50%); }
+
+
+          /* תקשוב */
+        #ButtonMahleketTiksov  { width:125px; top: 89%; left:52%;}
+        #ButtonTastiyot    { width: 125px; top:89%; left:15%;}
+
+        #ButtonKitatDamiin { width: 135px; top: 23%; left: 32%; transform: translateX(-50%); }
+        #ButtonKitatTagam         { width: 135px; top: 23%; left: 68%; transform: translateX(-50%); }
+       #ButtonNagmasim      { width: 135px; top: 32%; left: 32%; transform: translateX(-50%); }
+         #ButtonKitatChadPes     { width: 135px; top: 32%; left: 68%; transform: translateX(-50%); }
+        #ButtonKitatTzid        { width: 135px; top: 41%; left: 32%; transform: translateX(-50%); }
+        #ButtonKitatMisva        { width: 135px; top: 41%; left: 68%; transform: translateX(-50%); }
+
+          #ButtonKeserRadio          { width: 150px; top: 30%; left: 27.5%; transform: translateX(-50%); }
+          #ButtonCayad750   { width: 150px; top: 30%; left: 75%; transform: translateX(-50%); }
+          #ButtonSov           { width: 150px; top: 40%; left: 27.5%; transform: translateX(-50%); }
+          #ButtonLogTiksov            { width: 150px; top: 40%; left: 75%; transform: translateX(-50%); }
+          #ButtonMaracySior          { width: 150px; top: 50%; left: 50%; transform: translateX(-50%); }
+  
+/* שטחי אש */
+     #ButtonMitkanRotem { width: 135px; top: 23%; left: 30%; transform: translateX(-50%); }
+     #ButtonMitkanEimonim      { width: 135px; top: 23%; left: 70%; transform: translateX(-50%); }
+     #ButtonMitkanRotemDarom     { width: 135px; top: 32%; left: 30%; transform: translateX(-50%); }
+     #ButtonMitkanRotemMarav     { width: 135px; top: 32%; left: 70%; transform: translateX(-50%); }
+    #ButtonMitkanMevodedet        { width: 135px; top: 41%; left: 30%; transform: translateX(-50%); }
+     #ButtonMitkanSikago        { width: 135px; top: 41%; left: 70%; transform: translateX(-50%); }
+
+    #ButtonMitkanArielA          { width: 135px; top:51%; left: 30%; transform: translateX(-50%); }
+        #ButtonMitkanDanilov   { width: 135px; top: 51%; left: 70%; transform: translateX(-50%); }
+    #ButtonMitkanArielB           { width: 135px; top:61%; left: 30%; transform: translateX(-50%); }
+          #ButtonMitkanLevanon            { width: 135px; top:61%; left: 70%; transform: translateX(-50%); }
+          #ButtonBeresit          { width: 135px; top: 71%; left: 50%; transform: translateX(-50%); }
+  
+/* מעטפת אימון */
+   #ButtonMitkanHiyol          { width: 300px; top:30%; left: 50%; transform: translateX(-50%); }
+        #ButtonChiyod   { width: 300px; top: 40%; left: 50%; transform: translateX(-50%); }
+    #ButtonRecev           { width: 300px; top:50%; left: 50%; transform: translateX(-50%); }
+          #ButtonTastiyotAiroah         { width: 300px; top:60%; left: 50%; transform: translateX(-50%); }
+
+    </style>  
+                     
+    <script>
+
+ 
+
+function GoBack() {
+   
+changeImage()
+            
+}
+
+        function updatePageState(hasScroll, customHeight) {
+            const wrapper = document.querySelector('.page-wrapper');
+            if (hasScroll) {
+                document.body.style.overflowY = "auto";
+                // אנחנו מגדירים את הגובה ל-body כדי שהרקע יתממשק איתו
+                document.body.style.height = customHeight;
+                wrapper.style.height = customHeight;
+            } else {
+                document.body.style.overflowY = "hidden";
+                document.body.style.height = "100vh";
+                wrapper.style.height = "100vh";
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function hideAll() {
+            const btns = document.querySelectorAll('.abs-btn');
+            btns.forEach(b => b.style.display = 'none');
+        }
+
+        setTimeout(function() {
+            document.body.style.backgroundImage ="url('assets/עמוד חזון מלי.png')";
+            document.getElementById('NEXTButton').style.display = "block";
+        }, 3000);
+
+        function changeImage() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/קטלוג האימונים אפליקציה-03.png')";
+            
+            // הגדרת גובה גלילה - התמונה תימתח בדיוק לפה
+            updatePageState(true, "1000px"); 
+ document.getElementById('ButtonHazor').style.display = "None";
+            const menu = ['ButtonYadmat', 'ButtonMahal', 'ButtonMaharas', 'ButtonDeromi', 
+                          'ButtonZfoni', 'ButtonZhav', 'ButtonHes', 'ButtonTiksov', 'ButtonEimon'];
+            menu.forEach(id => document.getElementById(id).style.display = "block");
+        }
+// תפריט
+        function changeYadmat() {
+            
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/קטלוג ידמט-01.png')";
+              updatePageState(true, "780px"); 
+            document.getElementById('ButtonContinue').style.display = "block";
+            document.getElementById('ButtonMedamot').style.display = "block";
+            document.getElementById('ButtonHamer').style.display = "block";
+        }
+        
+       function changeMedamot() {
+          
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/קטלוג ידמט-02.png')";
+
+            updatePageState(false);
+             document.getElementById('ButtonContinue').style.display = "block";
+            document.getElementById('ButtonContinue').style.display = "block";
+             document.getElementById('ButtonMedamot').style.display = "none";
+            document.getElementById('ButtonHamer').style.display = "none";
+        
+        }
+
+        function changeHamer() {
+            
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/קטלוג ידמט-03.png')";
+             updatePageState(true, "785px"); 
+            document.getElementById('ButtonContinue').style.display = "block";
+             document.getElementById('ButtonMedamot').style.display = "none";
+            document.getElementById('ButtonHamer').style.display = "none";
+        }
+
+
+          function changeMahal() {
+              
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/סוגי אימונים במאל.png')";
+              updatePageState(false); 
+            document.getElementById('ButtonGdod').style.display = "block";
+            document.getElementById('ButtonHativa').style.display = "block";
+            document.getElementById('ButtonPikod').style.display = "block";
+            document.getElementById('ButtonHazor').style.display = "block";
+        }
+// מאל
+
+// גדוד
+       function changeGdod  () {
+          
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/עמוד דרג הגדוד.png')";
+             updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+            document.getElementById('ButtonMaclolMenala').style.display = "block";
+            document.getElementById('ButtonTene').style.display = "block";
+            document.getElementById('ButtonHaspaka').style.display = "block";
+            document.getElementById('ButtonPlasim').style.display = "block";
+            document.getElementById('ButtonMasan').style.display = "block";
+            document.getElementById('ButtonRepoa').style.display = "block";
+        }
+
+        function changeMaclolMenala(){
+           hideAll();
+// אין לי כרגע תוכן לשים
+            updatePageState(false); 
+             document.getElementById('ButtonHazor').style.display = "block";
+        }
+
+ function changeTene(){   
+           hideAll();
+  document.body.style.backgroundImage = "url('assets/אימון פלגת טנא.png')";
+            updatePageState(false); 
+             document.getElementById('ButtonHazor').style.display = "block";
+        }
+
+        function changeHaspaka(){   
+           hideAll();
+ // אין לי כרגע תוכן לשים
+            updatePageState(false); 
+             document.getElementById('ButtonHazor').style.display = "block";
+        }
+
+         function changePlasim(){   
+           hideAll();
+  document.body.style.backgroundImage = "url('assets/אימון מכין פלסם.png')";
+            updatePageState(false); 
+             document.getElementById('ButtonHazor').style.display = "block";
+        }
+
+        function changeMasan(){   
+           hideAll();
+  document.body.style.backgroundImage = "url('assets/מחלקת משאן.png')";
+            updatePageState(false); 
+             document.getElementById('ButtonHazor').style.display = "block";
+        }
+
+         function changeRepoa(){   
+           hideAll();
+  document.body.style.backgroundImage = "url('assets/אימון פלוגת רפואה.png')";
+            updatePageState(false); 
+             document.getElementById('ButtonHazor').style.display = "block";
+        }
+
+        // חטיבה
+function changeHativa  () {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/דרג החטיבה.png')";
+             updatePageState(false); 
+            document.getElementById('Buttongadsam').style.display = "block";
+            document.getElementById('ButtonMaclolMivchim').style.display = "block";
+            document.getElementById('ButtonSinoa').style.display = "block";
+            document.getElementById('ButtonPtan').style.display = "block";
+            document.getElementById('ButtonPlahak').style.display = "block";
+        }
+
+         function changeGadsam(){   
+           hideAll();
+  document.body.style.backgroundImage = "url('assets/אימון גדסם מלא.png')";
+            updatePageState(false); 
+             document.getElementById('ButtonHazor').style.display = "block";
+        }
+
+          function changeMaclolMivchim(){   
+            hideAll();
+ // אין לי כרגע תוכן לשים
+            updatePageState(false); 
+             document.getElementById('ButtonHazor').style.display = "block";
+        }
+
+           function changeSinoa(){   
+            hideAll();
+  document.body.style.backgroundImage = "url('assets/פלוגת שינוע גדסם.png')";
+            updatePageState(false); 
+             document.getElementById('ButtonHazor').style.display = "block";
+        }
+
+            function changePtan(){   
+            hideAll();  
+           // אין לי כרגע תוכן לשים
+            updatePageState(false); 
+             document.getElementById('ButtonHazor').style.display = "block";
+        }
+              function changePlahak(){   
+              hideAll();  
+              document.body.style.backgroundImage = "url('assets/פלהק פלכר רקע.png')";
+              updatePageState(false); 
+              document.getElementById('ButtonHazor').style.display = "block";
+          }
+// תקשוב
+ function changeTiksov() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/תקשוב רקע.png')";
+               updatePageState(true, "1000px"); 
+            document.getElementById('ButtonMahleketTiksov').style.display = "block";
+            document.getElementById('ButtonTastiyot').style.display = "block";
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+             function changeMahleketTiksov() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/אמוני מחלקות תקשוב.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonKitatDamiin').style.display = "block";
+            document.getElementById('ButtonKitatTagam').style.display = "block";
+             document.getElementById('ButtonKitatChadPes').style.display = "block";
+            document.getElementById('ButtonNagmasim').style.display = "block";
+            document.getElementById('ButtonKitatTzid').style.display = "block";
+            document.getElementById('ButtonKitatMisva').style.display = "block";
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+            // תשתיות
+              function changeTastiyot() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/תכני אימון.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonKeserRadio').style.display = "block";
+            document.getElementById('ButtonCayad750').style.display = "block";
+             document.getElementById('ButtonSov').style.display = "block";
+            document.getElementById('ButtonLogTiksov').style.display = "block";
+            document.getElementById('ButtonMaracySior').style.display = "block";
+            document.getElementById('ButtonHazor').style.display = "block";
+             }   
+
+            //  - תשתיות אימון -->
+               function changeKeserRadio() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/קשר רדיו רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             } 
+
+                  function changeLogTiksov() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/לוג תקשוב רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             } 
+
+                       function changeCayad750() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/ציד 750 רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             } 
+
+             
+                       function changeSov() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/שוב רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             } 
+
+             function changeMaracySior() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/מערכי שיעור רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             } 
+   
+             // אימוני מחלקת תקשוב 
+              function changeKitatDamiin() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/כיתת דמיין רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             } 
+
+              function changeKitatTagam() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/רקע כיתת דגס.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+               function changeKitatChadPes() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/כיתת חד פס רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+                function changeNagmasim() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/נגמשים רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+                function changeKitatTzid() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/כיתת ציד רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+                  function changeKitatMisva() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/כיתת משואה רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+ // שטחי אש
+              function changeHes() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/שטחי אש רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonMitkanRotem').style.display = "block";
+            document.getElementById('ButtonMitkanEimonim').style.display = "block";  
+            document.getElementById('ButtonMitkanRotemDarom').style.display = "block";
+            document.getElementById('ButtonMitkanRotemMarav').style.display = "block";
+            document.getElementById('ButtonMitkanMevodedet').style.display = "block";
+            document.getElementById('ButtonMitkanSikago').style.display = "block";
+           document.getElementById('ButtonMitkanArielA').style.display = "block";
+            document.getElementById('ButtonMitkanDanilov').style.display = "block";
+            document.getElementById('ButtonMitkanArielB').style.display = "block";
+            document.getElementById('ButtonMitkanLevanon').style.display = "block";
+             document.getElementById('ButtonBeresit').style.display = "block";
+            document.getElementById('ButtonHazor').style.display = "block";
+             }          
+             
+     function changeMitkanRotem() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/מתקן רותם רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+             function changeMitkanEimonim() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/מאלא רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             } 
+
+    function changeMitkanRotemDarom() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/מתקן רותם דרום רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+     function changeMitkanRotemMarav() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/מתקן רותם מערב.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+       function changeMitkanMevodedet() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/מתקן מבודדת רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+         function changeMitkanSikago() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/מתקן שיקגו רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+ function changeMitkanArielA() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/מתקן אריאל א רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+     function changeMitkanArielB() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/מתקן אריאל ב רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+      
+       function changeMitkanDanilov() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/מתקן דנילוב רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+             }
+
+              function changeBeresit() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/מתקן בראשית רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+
+             }
+
+              function changeMitkanLevanon() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/מתקן לבנון רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+              }
+ 
+               // מעטפת אימון
+              function changeEimon() {
+           hideAll();
+            document.body.style.backgroundImage = "url('assets/מעטפת אימון רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonMitkanHiyol').style.display = "block";
+            document.getElementById('ButtonChiyod').style.display = "block";
+            document.getElementById('ButtonRecev').style.display = "block";
+             document.getElementById('ButtonTastiyotAiroah').style.display = "block";
+            document.getElementById('ButtonHazor').style.display = "block";
+             }         
+             
+             
+               function changeMitkanHiyol() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/מתקן חיול רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+              }
+            
+             function changeChiyod() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/ציוד רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+              }
+   
+              
+                function changeRecev() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/רכב רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+              }
+
+              
+               function changeTastiyotAiroah() {
+            hideAll();
+            document.body.style.backgroundImage = "url('assets/תשתיות אירוח רקע.png')";
+               updatePageState(false); 
+            document.getElementById('ButtonHazor').style.display = "block";
+              }
+   
+    </script>
+</head>
+<body>
+    <div class="page-wrapper">
+      <!-- תפריט -->
+        <img id="NEXTButton" class="abs-btn" src="assets/כפתור הבא.png" onclick="changeImage()">
+        <img id="ButtonYadmat" class="abs-btn" src="assets/כפתור תפריט ידמט.png" onclick="changeYadmat()">
+        <img id="ButtonMahal" class="abs-btn" src="assets/כפתור תפריט מאל.png" onclick="changeMahal()">
+        <img id="ButtonMaharas" class="abs-btn" src="assets/כפתור תפריט מרהש.png" onclick="changeMaharas()">
+        <img id="ButtonDeromi" class="abs-btn" src="assets/כפתור תפריט מרכז דרומי.png" onclick="changeDeromi()">
+        <img id="ButtonZfoni" class="abs-btn" src="assets/כפתור תפריט מרכז צפוני.png" onclick="changeZfoni()">
+        <img id="ButtonZhav" class="abs-btn" src="assets/כפתור תפריט שביל הזהב.png" onclick="changeZhav()">
+        <img id="ButtonHes" class="abs-btn" src="assets/כפתור תפריט שטחי אש.png" onclick="changeHes()">
+        <img id="ButtonTiksov" class="abs-btn" src="assets/כפתור תפריט תקשוב.png" onclick="changeTiksov()">
+        <img id="ButtonEimon" class="abs-btn" src="assets/כפתור תפריט מעטפת אימון.png" onclick="changeEimon()">
+        <img id="ButtonContinue" class="abs-btn" src="assets/להמשך לקטלוג-01.png" onclick="changeImage()">
+<!-- ידמט -->
+        <img id="ButtonMedamot" class="abs-btn" src="assets/מדמות אויב-01.png" onclick="changeMedamot()">
+        <img id="ButtonHamer" class="abs-btn" src="assets/מפעילות האמר קרבי-01.png" onclick="changeHamer()">
+<!-- מאל -->
+         <img id="ButtonGdod" class="abs-btn" src="assets/כפתור דרג הגדוד.png" onclick="changeGdod()">
+        <img id="ButtonHativa" class="abs-btn" src="assets/כפתור דרג החטיבה.png" onclick="changeHativa()">
+        <img id="ButtonPikod" class="abs-btn" src="assets/כפתור דרג הפיקוד.png" onclick="changePikod()">
+        <img id="ButtonHazor" class="abs-btn" src="assets/כפתור חזור.png" onclick="GoBack()">
+          <!-- דרג גדוד -->
+         <img id="ButtonMaclolMenala" class="abs-btn" src="assets/כפתור מכלול מנהלה.png" onclick="changeMaclolMenala()">
+        <img id="ButtonTene" class="abs-btn" src="assets/כפתור פלגת טנא.png" onclick="changeTene()">
+         <img id="ButtonHaspaka" class="abs-btn" src="assets/כפתור פלגת הספקה.png" onclick="changeHaspaka()">
+        <img id="ButtonPlasim" class="abs-btn" src="assets/כפתור פלסים.png" onclick="changePlasim()">
+        <img id="ButtonMasan" class="abs-btn" src="assets/כפתור מחלקת משאן.png" onclick="changeMasan()">
+        <img id="ButtonRepoa" class="abs-btn" src="assets/כפתור פלגת רפואה.png" onclick="changeRepoa()">
+        <!-- דרג חטיבה -->
+          <img id="Buttongadsam" class="abs-btn" src="assets/גדסם.png" onclick="changeGadsam()">
+          <img id="ButtonMaclolMivchim" class="abs-btn" src="assets/מכלול מבצעים גדסם.png" onclick="changeMaclolMivchim()">
+          <img id="ButtonSinoa" class="abs-btn" src="assets/פלוגת שינוע.png" onclick="changeSinoa()">
+          <img id="ButtonPtan" class="abs-btn" src="assets/פתן.png" onclick="changePtan()">
+          <img id="ButtonPlahak" class="abs-btn" src="assets/פלהק פלכר.png" onclick="changePlahak()">
+        <!-- דרג הפיקוד -->
+             <!-- לא ברור מה קורה פה -->
+
+ <!-- מהרש -->
+        <!-- אין לי כרגע תוכן לשים -->
+
+ <!-- מרכז דרומי -->
+        <!-- אין לי כרגע תוכן לשים -->
+
+<!--שביל הזהב -->
+        <!-- אין לי כרגע תוכן לשים -->
+
+<!-- מרכז צפוני  -->
+         <!-- לא ברור מה קורה פה -->
+
+<!--תקשוב -->
+        <img id="ButtonMahleketTiksov" class="abs-btn" src="assets/אימוני מחלקת תקשוב.png" onclick="changeMahleketTiksov()">
+        <img id="ButtonTastiyot" class="abs-btn" src="assets/תשתיות אימון.png" onclick="changeTastiyot()">
+        <!-- אימוני מחלקת תקשוב -->
+          <img id="ButtonKitatDamiin" class="abs-btn" src="assets/כיתת דמיין.png" onclick="changeKitatDamiin()">
+          <img id="ButtonKitatTagam" class="abs-btn" src="assets/כיתת תגם.png" onclick="changeKitatTagam()">
+          <img id="ButtonKitatChadPes" class="abs-btn" src="assets/כיתת חד פס.png" onclick="changeKitatChadPes()">
+          <img id="ButtonNagmasim" class="abs-btn" src="assets/נגמשים.png" onclick="changeNagmasim()">
+          <img id="ButtonKitatTzid" class="abs-btn" src="assets/כיתת ציד.png" onclick="changeKitatTzid()">
+          <img id="ButtonKitatMisva" class="abs-btn" src="assets/כיתת משואה.png" onclick="changeKitatMisva()">
+      <!-- תשתיות אימון -->
+          <img id="ButtonKeserRadio" class="abs-btn" src="assets/קשר רדיו.png" onclick="changeKeserRadio()">
+          <img id="ButtonCayad750" class="abs-btn" src="assets/ציד 750.png" onclick="changeCayad750()">
+          <img id="ButtonSov" class="abs-btn" src="assets/שוב.png" onclick="changeSov()">
+          <img id="ButtonLogTiksov" class="abs-btn" src="assets/לוג תקשוב.png" onclick="changeLogTiksov()">
+          <img id="ButtonMaracySior" class="abs-btn" src="assets/מערכי שיעור.png" onclick="changeMaracySior()">
+    
+<!-- שטחי אש -->
+          <img id="ButtonMitkanRotem" class="abs-btn" src="assets/מתקן רותם כפתור.png" onclick="changeMitkanRotem()">
+          <img id="ButtonMitkanEimonim" class="abs-btn" src="assets/מתקן אימונים ללחימה אורבנית כפתור.png" onclick="changeMitkanEimonim()">
+          <img id="ButtonMitkanRotemDarom" class="abs-btn" src="assets/מתקן רותם דרום כפתור.png" onclick="changeMitkanRotemDarom()">
+          <img id="ButtonMitkanRotemMarav" class="abs-btn" src="assets/מתקן רותם מערב כפתור.png" onclick="changeMitkanRotemMarav()">
+          <img id="ButtonMitkanMevodedet" class="abs-btn" src="assets/מתקן מבודדת כפתור.png" onclick="changeMitkanMevodedet()">
+          <img id="ButtonMitkanSikago" class="abs-btn" src="assets/מתקן שיקגו כפתור.png" onclick="changeMitkanSikago()">
+           <img id="ButtonMitkanArielA" class="abs-btn" src="assets/מתקן אריאל א כפתור.png" onclick="changeMitkanArielA()">
+          <img id="ButtonMitkanDanilov" class="abs-btn" src="assets/מתקו דנילוב כפתור.png" onclick="changeMitkanDanilov()">
+          <img id="ButtonMitkanArielB" class="abs-btn" src="assets/מתקן אריאל ב כפתור.png" onclick="changeMitkanArielB()">
+          <img id="ButtonMitkanLevanon" class="abs-btn" src="assets/מתקן לבנון כפתור.png" onclick="changeMitkanLevanon()">
+          <img id="ButtonBeresit" class="abs-btn" src="assets/בראשית כפתור.png" onclick="changeBeresit()">
+
+<!-- מעטפת אימון -->
+          <img id="ButtonMitkanHiyol" class="abs-btn" src="assets/כפתור מתקן חיול.png" onclick="changeMitkanHiyol()">
+          <img id="ButtonChiyod" class="abs-btn" src="assets/כפתור ציוד.png" onclick="changeChiyod()">
+          <img id="ButtonRecev" class="abs-btn" src="assets/כפתור רכב.png" onclick="changeRecev()">
+          <img id="ButtonTastiyotAiroah" class="abs-btn" src="assets/תשתיות אירוח כפתור.png" onclick="changeTastiyotAiroah()">
+
+
+    </div>
+</body>
+</html>
